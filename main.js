@@ -24,6 +24,11 @@ function Book(title, author, totalPages, isRead,id){
 
 }
 
+Book.prototype.toggleReadState = function (){
+    this.isRead = !this.isRead;
+}
+
+
 function addBookToLibrary(title, author, totalPages, isRead){
     let id = crypto.randomUUID();
     let book = new Book (title, author, totalPages, isRead, id);
@@ -64,13 +69,29 @@ function showLibrary(){
             showLibrary();
         });
 
+        const toggleReadState = document.createElement("button");
+        toggleReadState.textContent = "Toggle Read State";
+        toggleReadState.addEventListener("click",(event)=>{
+            const parent = event.target.parentElement;
+            const cardId = parent.dataset.id;
+
+            myLibrary.forEach(book =>{
+                if(cardId === book.id){
+                    book.toggleReadState();
+                }
+            });
+            showLibrary();
+        });
+
+
+
 
         title.textContent = book.title;
         author.textContent = book.author;
         totalPages.textContent = book.totalPages;
         readStatus.textContent = book.isRead ? "already read" : "not read yet";
 
-        bookCard.append(title,author,totalPages,readStatus,removeBookButton);
+        bookCard.append(title,author,totalPages,readStatus,removeBookButton,toggleReadState);
         bookCardsContainer.appendChild(bookCard);
     });
 }
