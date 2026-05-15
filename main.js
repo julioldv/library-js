@@ -1,3 +1,6 @@
+
+
+
 const myLibrary = [];
 
 
@@ -16,7 +19,7 @@ function Book(title, author, totalPages, isRead,id){
         
 
 
-        return `${this.title} by ${this.author}, ${this.totalPages} pages, ${readStatus}`;
+        return `${this.title} by ${this.author}, ${this.totalPages} pages, ${readStatus}, ${id}`;
     }
 
 }
