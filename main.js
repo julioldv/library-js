@@ -1,5 +1,5 @@
-
-
+const form = document.querySelector(".book-form");
+const bookCardsContainer = document.querySelector(".book-cards-container");
 
 const myLibrary = [];
 
@@ -36,12 +36,25 @@ addBookToLibrary("The Hobbit", "Tolkien",400,true);
 addBookToLibrary("Pedro Paramo", "Juan Rulfo",200,false);
 
 function showLibrary(){
+    bookCardsContainer.innerHTML = "";
     myLibrary.forEach(book => {
-        console.log(book.info());
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("card");
+        const title = document.createElement("h2");
+        const author = document.createElement("p");
+        const totalPages = document.createElement("p");
+
+
+        title.textContent = book.title;
+        author.textContent = book.author;
+        totalPages.textContent = book.totalPages;
+
+        bookCard.append(title,author,totalPages);
+        bookCardsContainer.appendChild(bookCard);
     });
 }
 
 
 showLibrary();
-
-
+showLibrary();
+showLibrary();
