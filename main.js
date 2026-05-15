@@ -35,26 +35,45 @@ addBookToLibrary("Atomic Habits", "James Clear",200,false);
 addBookToLibrary("The Hobbit", "Tolkien",400,true);
 addBookToLibrary("Pedro Paramo", "Juan Rulfo",200,false);
 
+
+function removeBook(){
+
+}
+
 function showLibrary(){
     bookCardsContainer.innerHTML = "";
     myLibrary.forEach(book => {
         const bookCard = document.createElement("div");
         bookCard.classList.add("card");
+        bookCard.dataset.id = book.id;
         const title = document.createElement("h2");
         const author = document.createElement("p");
         const totalPages = document.createElement("p");
+        const readStatus = document.createElement("p");
+        const removeBookButton = document.createElement("button");
+        removeBookButton.textContent = "Remove Book";
+        removeBookButton.addEventListener("click", (event)=>{
+            const parent = event.target.parentElement;
+            const cardId = parent.dataset.id;
+            
+            const index = myLibrary.findIndex(book => book.id === cardId);
+            if (index !== -1){
+                myLibrary.splice(index,1);
+            }
+
+            showLibrary();
+        });
 
 
         title.textContent = book.title;
         author.textContent = book.author;
         totalPages.textContent = book.totalPages;
+        readStatus.textContent = book.isRead ? "already read" : "not read yet";
 
-        bookCard.append(title,author,totalPages);
+        bookCard.append(title,author,totalPages,readStatus,removeBookButton);
         bookCardsContainer.appendChild(bookCard);
     });
 }
 
 
-showLibrary();
-showLibrary();
 showLibrary();
