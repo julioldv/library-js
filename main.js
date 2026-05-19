@@ -97,4 +97,24 @@ function showLibrary(){
 }
 
 
+form.addEventListener("submit",(event)=>{
+    event.preventDefault();
+    const title = document.querySelector("#book-title").value;
+    const author = document.querySelector("#book-author").value;
+    const totalPages = Number(document.querySelector("#total-pages").value);
+    const selected = document.querySelector('input[name="read-status"]:checked');
+    let isRead = false;
+    
+    if(selected){
+        if(selected.value === "read"){
+            isRead = true;
+        }else{
+            isRead = false;
+        }
+    }
+
+    addBookToLibrary(title,author,totalPages,isRead);
+    showLibrary();
+});
+
 showLibrary();
