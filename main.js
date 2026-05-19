@@ -45,7 +45,7 @@ function removeBook(){
 
 }
 
-function showLibrary(){
+function renderLibrary(){
     bookCardsContainer.innerHTML = "";
     myLibrary.forEach(book => {
         const bookCard = document.createElement("div");
@@ -56,6 +56,7 @@ function showLibrary(){
         const totalPages = document.createElement("p");
         const readStatus = document.createElement("p");
         const removeBookButton = document.createElement("button");
+        const toggleReadState = document.createElement("button");
         removeBookButton.textContent = "Remove Book";
         removeBookButton.addEventListener("click", (event)=>{
             const parent = event.target.parentElement;
@@ -66,11 +67,11 @@ function showLibrary(){
                 myLibrary.splice(index,1);
             }
 
-            showLibrary();
+            renderLibrary();
         });
 
-        const toggleReadState = document.createElement("button");
-        toggleReadState.textContent = "Toggle Read State";
+        
+        toggleReadState.textContent = book.isRead ? "Mark as not read" : "Mark as read";
         toggleReadState.addEventListener("click",(event)=>{
             const parent = event.target.parentElement;
             const cardId = parent.dataset.id;
@@ -80,7 +81,7 @@ function showLibrary(){
                     book.toggleReadState();
                 }
             });
-            showLibrary();
+            renderLibrary();
         });
 
 
@@ -89,7 +90,7 @@ function showLibrary(){
         title.textContent = book.title;
         author.textContent = book.author;
         totalPages.textContent = book.totalPages;
-        readStatus.textContent = book.isRead ? "already read" : "not read yet";
+        readStatus.textContent = book.isRead ? "Already read" : "Not read yet";
 
         bookCard.append(title,author,totalPages,readStatus,removeBookButton,toggleReadState);
         bookCardsContainer.appendChild(bookCard);
@@ -114,7 +115,8 @@ form.addEventListener("submit",(event)=>{
     }
 
     addBookToLibrary(title,author,totalPages,isRead);
-    showLibrary();
+    form.reset();
+    renderLibrary();
 });
 
-showLibrary();
+renderLibrary();
